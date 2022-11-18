@@ -201,7 +201,7 @@ private readonly logger = new Logger('ProductsService')
 
     //guarda el producto, lafuncion save actualiza si encuentra el producto y si no lo inserta
     //await this.productRepository.save(product);
-    
+
     //acemos el commit de la transaccion
     await queryRunner.commitTransaction();
     //con el siguiente comando no vuelve a funcionar
@@ -238,4 +238,25 @@ private readonly logger = new Logger('ProductsService')
 
 
   }
+
+  //para eliminar todos los productos de la BD
+   async deleteAllProduct(){
+    const query= this.productImageRepository.createQueryBuilder('product')
+    try{
+
+      return await query
+      .delete()
+      .where({})
+      .execute(); 
+
+
+    }catch(error)
+    {
+      this.handleExceptios(error);
+
+    }
+
+
+   }
+
 }

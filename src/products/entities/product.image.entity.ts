@@ -16,7 +16,9 @@ export class ProductImage{
     //aca hacemos la relacion con la tabla producto muchos a 1
     @ManyToOne(
        ()=> Product,
-       (product)=>product.images
+       (product)=>product.images,
+       //se define aca para borrar en cascasa
+       {onDelete:'CASCADE'}
     )
     product:Product
 
