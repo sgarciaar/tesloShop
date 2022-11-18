@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ProductsModule } from './products/products.module';
 
 
 @Module({
@@ -14,13 +15,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       database: process.env.DB_NAME, 
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
-      //para que Cargue automaticamente las entidades
+      //para que Cargue automaticamente las entidades ORMType
       autoLoadEntities: true,
-      //si creas o borras una columna lo sincroniza de inmedito en produccion se ocupa en falso
+      //si creas o borras una columna lo sincroniza de inmedito en produccion se ocupa en falso ORMType
       synchronize: true,
 
 
     }),
+    ProductsModule,
   
   ],
  
