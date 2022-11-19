@@ -240,8 +240,8 @@ private readonly logger = new Logger('ProductsService')
   }
 
   //para eliminar todos los productos de la BD
-   async deleteAllProduct(){
-    const query= this.productImageRepository.createQueryBuilder('product')
+    async deleteAllProduct(){
+    const query = this.productRepository.createQueryBuilder('product')
     try{
 
       return await query

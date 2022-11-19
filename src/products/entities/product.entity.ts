@@ -2,7 +2,8 @@ import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryGenerated
 import { Type } from 'class-transformer';
 import { ProductImage } from './product.image.entity';
 
-@Entity()
+//renombrar el nombre de la tabla
+@Entity({ name:'products' })
 export class Product {
 
     @PrimaryGeneratedColumn('uuid')

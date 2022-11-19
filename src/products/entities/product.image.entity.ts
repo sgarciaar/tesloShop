@@ -1,11 +1,10 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Product } from './product.entity';
 
-@Entity()
+@Entity({ name:'product_images' })
 export class ProductImage{
 
-    //id que se invrementa solo
-   // @PrimaryGeneratedColumn('increment')
+    //id que se incrementa solo
    @PrimaryGeneratedColumn()
     id:number;
 
