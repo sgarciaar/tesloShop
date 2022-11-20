@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UploadedFile, UseInterceptors, BadRequestException, Res } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response, response } from 'express';
 import { diskStorage } from 'multer';
@@ -11,7 +12,12 @@ import { fileNamer } from './helpers/fileNamer.helper';
 export class FilesController {
 //ahora se instala el tipo multer
 //yarn add -D @types/multer
-  constructor(private readonly filesService: FilesService) {}
+  constructor(private readonly filesService: FilesService,
+    //acceoso a variables de entorno
+    private readonly configService:ConfigService,
+    
+    
+    ) {}
 
   @Get('product/:imageName')
   findProductImage(
@@ -54,8 +60,10 @@ export class FilesController {
     if(!file){
       throw new BadRequestException(`esta seguro que el archivo es una imagen??`);
     }
+  //this.configService.get('HOST_API') asi se usan las variables de entorno
+    const secureUrl=`${this.configService.get('HOST_API')}/file/product/${file.filename}`;
 
-    const secureUrl = `${file.filename}`;
+  
 
     return { secureUrl};
   }
