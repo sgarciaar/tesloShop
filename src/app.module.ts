@@ -1,10 +1,15 @@
+import { join } from 'path';
 import { Module } from '@nestjs/common';
+import { ServeStaticModule } from '@nestjs/serve-static';
+
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductsModule } from './products/products.module';
 import { CommonModule } from './common/common.module';
 import { SeedModule } from './seed/seed.module';
 import { FilesModule } from './files/files.module';
+
+
 
 
 @Module({
@@ -25,6 +30,15 @@ import { FilesModule } from './files/files.module';
 
 
     }),
+    //para servir contenido statico este module yarn add @nestjs/serve-static
+    //y veremos las imagenes staticas en el browser en la url
+    //http://localhost:3000/products/1473809-00-A_1_2000.jpg
+    ServeStaticModule .forRoot({
+      rootPath: join(__dirname,'..','public'),}),
+
+    
+    
+
     ProductsModule,
     CommonModule,
     SeedModule,
