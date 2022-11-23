@@ -9,14 +9,14 @@
 4. Cambiar las variables de entorno
 5. Levantar la Base de Datos
 ````
-docker- compose up -d
+docker compose up -d
 ````
-
-6. ejecutar Seed
- ````
- http://localhost:3000/api/seed
-````
-7. Levantar modeo desarrollo
+6. Levantar modeo desarrollo
 ````
 yarn start:dev
 `````
+
+7. ejecutar Seed
+ ````
+ http://localhost:3000/api/seed
+````
