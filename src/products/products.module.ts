@@ -4,6 +4,7 @@ import { ProductsService } from './products.service';
 import { ProductsController } from './products.controller';
 
 import { Product, ProductImage } from './entities';
+import { AuthModule } from '../auth/auth.module';
 
 
 
@@ -11,7 +12,9 @@ import { Product, ProductImage } from './entities';
   controllers: [ProductsController],
   providers: [ProductsService],
   imports: [
-    TypeOrmModule.forFeature([Product, ProductImage])
+    TypeOrmModule.forFeature([Product, ProductImage]),
+    //se importa para autorizar servicios por rol
+    AuthModule,
   ],
   exports:[
     ProductsService,

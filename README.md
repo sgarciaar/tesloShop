@@ -16,7 +16,7 @@ docker compose up -d
 yarn start:dev
 `````
 
-7. ejecutar Seed
+7. ejecutar Seed de tipo GET
  ````
  http://localhost:3000/api/seed
 ````

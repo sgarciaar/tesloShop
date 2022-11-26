@@ -1,6 +1,7 @@
-import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Type } from 'class-transformer';
 import { ProductImage } from './product.image.entity';
+import { User } from '../../auth/entities/user.entity';
 
 //renombrar el nombre de la tabla
 @Entity({ name:'products' })
@@ -53,7 +54,9 @@ export class Product {
     //aca hacemos la relacion con la tabla product_images
     //1 a muchos
     @OneToMany(
+        //con que entidad se va a relacionar
         ()=> ProductImage,
+         //con que campo se va a relacionar
         (productImage)=>productImage.product,
         //ayuda a eliminar en cascada
         //duncion eager en true para que muestre la data con cualquier find()en una
@@ -61,6 +64,16 @@ export class Product {
         {cascade: true, eager:true} 
     )
     images?:ProductImage[];
+
+    @ManyToOne(
+        //con que entidad se va a relacionar
+        ()=>User,
+         //con que campo se va a relacionar
+        (user)=>user.product,
+        //carga automaticamente la relacion
+        {eager:true},
+    )
+    user:User
 
     //simpre que quiera insertar pasara por estas rutina
     @BeforeInsert()
