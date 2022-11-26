@@ -10,6 +10,7 @@ import { identity } from 'rxjs';
 import {validate as isUUID} from 'uuid';
 import { ProductImage } from './entities/product.image.entity';
 import { url } from 'inspector';
+import { User } from 'src/auth/entities/user.entity';
 
 @Injectable()
 export class ProductsService {
@@ -38,7 +39,7 @@ private readonly logger = new Logger('ProductsService')
     
 
 
-  async create(createProductDto: CreateProductDto) {
+  async create(createProductDto: CreateProductDto, user:User) {
 
     try{
 
@@ -50,7 +51,8 @@ private readonly logger = new Logger('ProductsService')
       const product = this.productRepository.create({
         //... operador espred para esparsir las propiedade de createProducDto
         ...producDetails,
-        images: images.map( image => this.productImageRepository.create({ url:image}))
+        images: images.map( image => this.productImageRepository.create({ url:image})),
+        user,
 
       })
       //esta linea guarda el producto
@@ -62,9 +64,6 @@ private readonly logger = new Logger('ProductsService')
         this.handleExceptios(error);
     }
     
-
-
-
    
   }
 
@@ -159,7 +158,7 @@ private readonly logger = new Logger('ProductsService')
 
   }
 
-  async update(id: string, updateProductDto: UpdateProductDto) {
+  async update(id: string, updateProductDto: UpdateProductDto, user:User) {
 
   const{images, ...toUpdate} = updateProductDto
 
@@ -197,6 +196,10 @@ private readonly logger = new Logger('ProductsService')
 
 
       }
+
+      //aca le pasamos el user
+      product.user = product.user;
+      //aca se guarda el producto con el user
       await queryRunner.manager.save(product);
 
     //guarda el producto, lafuncion save actualiza si encuentra el producto y si no lo inserta
