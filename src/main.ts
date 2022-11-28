@@ -1,6 +1,8 @@
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import {DocumentBuilder, SwaggerModule} from '@nestjs/swagger';
 import { AppModule } from './app.module';
+
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -18,6 +20,21 @@ async function bootstrap() {
     forbidNonWhitelisted: true,
     })
    );
+
+    //aca se implementa Swagger en la siguiente url http://localhost:3000/api
+    const config = new DocumentBuilder()
+    .setTitle('Teslo RESTFull')
+    .setDescription('Teslo Descripction')
+    .setVersion('1.0')
+    //los tag son para agrupar
+    //.addTag('cats')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
+
+
+
+
 
   await app.listen(process.env.PORT);
   //asi se implemente el logger

@@ -6,8 +6,10 @@ import { diskStorage } from 'multer';
 import { FilesService } from './files.service';
 import { fileFilter } from './helpers/fileFilter.helper';
 import { fileNamer } from './helpers/fileNamer.helper';
+import { ApiTags } from '@nestjs/swagger';
 
-
+//decorador propio de swagger para agrupar los controller
+@ApiTags('File')
 @Controller('files')
 export class FilesController {
 //ahora se instala el tipo multer
