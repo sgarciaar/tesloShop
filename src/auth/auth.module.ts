@@ -26,9 +26,9 @@ import { JwtStrategy } from './strategies/jwt-strategy';
       inject:[ConfigService],
       useFactory: (configService:ConfigService) => {
         //este viene del config service
-        console.log('JWT Secret', configService.get('JWT_SECRET')),
+        //console.log('JWT Secret', configService.get('JWT_SECRET')),
         //este viene e las variables de entorno
-        console.log('JWT SECRET', process.env.JWT_SECRET )
+        //console.log('JWT SECRET', process.env.JWT_SECRET )
         return {
           //se puede traer de las variables de entorno o
         //secret:process.env.JWT_SECRET,

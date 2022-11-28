@@ -1,4 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe, Query, ConsoleLogger } from '@nestjs/common';
+import {ApiResponse, ApiTags} from '@nestjs/swagger';
+
+
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -7,7 +10,11 @@ import { Auth } from 'src/auth/decorators/auth.decorator';
 import { GetUser } from 'src/auth/decorators/get-user.decorator';
 //import { Auth } from '../auth/decorators/auth.decorator';
 import { User } from '../auth/entities/user.entity';
+import { Product } from './entities/product.entity';
 
+
+//decorador propio de swagger para agrupar los controller
+@ApiTags('Products')
 @Controller('products')
 //con auth() digo que para usar algun servicio 
 //se debe estar autentificado osea pasar el JWT
@@ -17,6 +24,12 @@ export class ProductsController {
 
   @Post()
   @Auth()
+  //decorador propio de swagger
+  @ApiResponse({status:201, description:'producto fue creado',type: Product })
+  //decorador propio de swagger
+  @ApiResponse({status:400, description:'Informacion faltante'})
+    //decorador propio de swagger
+    @ApiResponse({status:403, description:'el token no fue proporcionado'})
   create(
     @Body() createProductDto: CreateProductDto,
     @GetUser() user:User
